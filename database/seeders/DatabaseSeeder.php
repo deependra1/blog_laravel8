@@ -47,6 +47,21 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
+        DB::table('tags')->insert([
+            [
+                'name' => 'Tag 1',
+                'slug' => 'tag-1'
+            ],
+            [
+                'name' => 'Tag 2',
+                'slug' => 'tag-2'
+            ],
+            [
+                'name' => 'Tag 3',
+                'slug' => 'tag-3'
+            ],
+        ]);
+
 
     }
 }

@@ -68,6 +68,30 @@
                     </ul>
                 </li>
 
+                <li class="nav-item {{ Route::currentRouteName()==='tags.index' || Route::currentRouteName()==='tags.create' ?'menu-open':'' }}">
+                <a href="#" class="nav-link {{ Route::currentRouteName()==='tags.index' || Route::currentRouteName()==='tags.create' ?'active':'' }}" >
+                    <i class="nav-icon fas fa-folder"></i>
+                    <p>
+                        Tags
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('tags.index') }}" class="nav-link {{ Route::currentRouteName()==='tags.index'?'active':'' }}">
+                            <i class="fas fa-list nav-icon"></i>
+                            <p>List All</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('tags.create') }}" class="nav-link {{ Route::currentRouteName()==='tags.create'?'active':'' }}">
+                            <i class="fas fa-plus nav-icon"></i>
+                            <p>Add New</p>
+                        </a>
+                    </li>
+                </ul>
+                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

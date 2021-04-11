@@ -6,23 +6,23 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="m-0">Add New Category</h5>
+                    <h5 class="m-0">Add New Tag</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ Route::currentRouteName() === 'categories.edit' ? route('categories.update', $category->id) : route('categories.store') }}" method="post">
+                    <form action="{{ Route::currentRouteName() === 'tags.edit' ? route('tags.update', $tag->id) : route('tags.store') }}" method="post">
 
-                        @if(Route::currentRouteName() === 'categories.edit')
+                        @if(Route::currentRouteName() === 'tags.edit')
                             @method('PUT')
                         @endif
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="title">Title</label>
-                                <input type="text" class="form-control" id="title" placeholder="Enter title" name="title" value="{{ isset($category)?$category->title:'' }}">
+                                <input type="text" class="form-control" id="name" placeholder="Enter title" name="name" value="{{ isset($tag)?$tag->name:'' }}">
                             </div>
                             <div class="form-group">
                                 <label for="slug">Slug</label>
-                                <input type="text" class="form-control" id="slug" placeholder="Enter title" name="slug" value="{{ isset($category)?$category->slug:'' }}">
+                                <input type="text" class="form-control" id="slug" placeholder="Enter title" name="slug" value="{{ isset($tag)?$tag->slug:'' }}">
                             </div>
                         </div>
                         <div class="modal-footer justify-content-between">
@@ -45,7 +45,7 @@
 @push('scripts_stacked')
     <script src="{{ asset('backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script type="text/javascript">
-        $("#title").keyup(function(){
+        $("#name").keyup(function(){
             var Text = $(this).val();
             Text = Text.toLowerCase();
             Text = Text.replace(/[^a-zA-Z0-9]+/g,'-');
