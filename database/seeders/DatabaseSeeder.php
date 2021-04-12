@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -61,6 +62,17 @@ class DatabaseSeeder extends Seeder
                 'slug' => 'tag-3'
             ],
         ]);
+
+        Post::withoutEvents(function () {
+            foreach (range(1, 10) as $i) {
+                Post::factory()->create([
+                    'title' => 'Post ' . $i,
+                    'slug' => 'post-' . $i,
+                    'seo_title' => 'Post ' . $i,
+                ]);
+            }
+
+        });
 
 
     }
