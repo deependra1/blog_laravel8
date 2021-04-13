@@ -44,8 +44,8 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="body">Post Body</label>
-                                                <textarea id="body" class="form-control" id="my-editor" rows="9" name="body"></textarea>
+                                                <textarea id="my-editor" name="content" class="form-control">{!! old('content', 'test editor content') !!}</textarea>
+
                                             </div>
 
 
@@ -165,9 +165,23 @@
     <script src="{{ asset('backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+    <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
     <script>
-        $('textarea.my-editor').ckeditor(options);
+        var options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+        };
     </script>
+    <script type="text/javascript">
+        CKEDITOR.replace('my-editor', options);
+    </script>
+
+    <script type="text/javascript">
+        $('#lfm').filemanager('image');
+    </script>
+
     <script type="text/javascript">
         $("#title").keyup(function(){
             var Text = $(this).val();
@@ -177,17 +191,15 @@
         });
     </script>
 
-    <script type="text/javascript">
-        $(function(){
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
             $('.select2').select2()
-        });
+        }
+        );
     </script>
 
-    <script type="text/javascript">
-        $('#lfm').filemanager('image');
-        var route_prefix = "storage/public";
-        $('#lfm').filemanager('image', {prefix: route_prefix});
-    </script>
+
 
 @endpush
 
