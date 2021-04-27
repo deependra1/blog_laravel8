@@ -15,9 +15,21 @@ class Post extends Model
         'seo_title',
         'excerpt',
         'body',
+        'category_id',
+        'tag_id',
         'meta_description',
         'meta_keywords',
         'active',
         'image',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

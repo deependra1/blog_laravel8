@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\TagController;
 use App\Http\Controllers\Backend\PostController;
+use App\Http\Controllers\Backend\UploadController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +16,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('tags', TagController::class);
     Route::resource('posts', PostController::class);
+    Route::resource('uploads', UploadController::class);
 //    Route::get('/users', function () {
 //        // Matches The "/admin/users" URL
 //    });

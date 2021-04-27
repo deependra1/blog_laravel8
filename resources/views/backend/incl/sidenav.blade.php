@@ -92,6 +92,30 @@
                 </ul>
                 </li>
 
+                <li class="nav-item {{ Route::currentRouteName()==='posts.index' || Route::currentRouteName()==='posts.create' ?'menu-open':'' }}">
+                    <a href="#" class="nav-link {{ Route::currentRouteName()==='posts.index' || Route::currentRouteName()==='posts.create' ?'active':'' }}" >
+                        <i class="nav-icon fas fa-folder"></i>
+                        <p>
+                            Posts
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('posts.index') }}" class="nav-link {{ Route::currentRouteName()==='posts.index'?'active':'' }}">
+                                <i class="fas fa-list nav-icon"></i>
+                                <p>List All</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('posts.create') }}" class="nav-link {{ Route::currentRouteName()==='posts.create'?'active':'' }}">
+                                <i class="fas fa-plus nav-icon"></i>
+                                <p>Add New</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

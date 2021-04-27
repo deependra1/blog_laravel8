@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -16,8 +18,9 @@ class PostController extends Controller
     public function index()
     {
         $i=0;
-        $posts = Post::latest()->paginate(5);
-        //dd($categories);
+        $posts = Post::latest()->with('category')->paginate(5);
+
+        //dd($posts);
         return view('backend.posts.index', compact('posts','i'));
     }
 
@@ -28,7 +31,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('backend.posts.form');
+        $categories=Category::all();
+        $tags=Tag::all();
+        return view('backend.posts.form', compact('categories', 'tags'));
     }
 
     /**
@@ -39,14 +44,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
 
         $request->validate([
             'title'=> 'required',
             'slug' =>'required',
         ]);
 
-        Post::create($request->all());
+        $post=Post::create($request->all());
+        $post->tags()->attach(request('tags'));
 
         return redirect()->route('posts.index')->with('success', 'Category added successfully!!!');
     }
@@ -70,7 +76,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories=Category::all();
+        $tags=Tag::all();
+        return view('backend.posts.form',compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -82,7 +90,15 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title'=> 'required',
+            'slug' =>'required',
+        ]);
+
+        $post->update($request->all());
+        $post->tags()->sync(request('tags'));
+
+        return redirect()->route('posts.index')->with('success', 'Category updated successfully!!!');
     }
 
     /**
@@ -93,6 +109,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('posts.index')
+            ->with('success','Post deleted successfully');
     }
 }

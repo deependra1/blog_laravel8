@@ -9,7 +9,7 @@
                     <h5 class="m-0">Add New Post</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ Route::currentRouteName() === 'posts.edit' ? route('posts.update', $category->id) : route('posts.store') }}" method="post">
+                    <form action="{{ Route::currentRouteName() === 'posts.edit' ? route('posts.update', $post->id) : route('posts.store') }}" method="post">
 
                         @if(Route::currentRouteName() === 'posts.edit')
                             @method('PUT')
@@ -30,21 +30,25 @@
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label for="title">Post Title</label>
-                                                <input type="text" id="title" class="form-control" name="title">
+                                                <input type="text" id="title" class="form-control" name="title" value="{{ isset($post)?$post->title: old('title') }}">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="slug">Slug</label>
-                                                <input type="text" id="slug" class="form-control" name="slug">
+                                                <input type="text" id="slug" class="form-control" name="slug" value="{{ isset($post)?$post->slug: old('slug') }}">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="excerpt">Post Excerpt</label>
-                                                <textarea id="excerpt" class="form-control" rows="4" name="excerpt"></textarea>
+                                                <textarea id="excerpt" class="form-control" rows="4" name="excerpt">
+                                                    {!! isset($post)?$post->excerpt: old('excerpt') !!}
+                                                </textarea>
                                             </div>
 
                                             <div class="form-group">
-                                                <textarea id="my-editor" name="content" class="form-control">{!! old('content', 'test editor content') !!}</textarea>
+                                                <textarea id="my-editor" name="body" class="form-control">
+                                                    {!! isset($post)?$post->body: old('body') !!}
+                                                </textarea>
 
                                             </div>
 
@@ -69,24 +73,28 @@
 
                                             <div class="form-group">
                                                 <label for="category">Category</label>
-                                                <select id="category" class="form-control custom-select" name="category">
-                                                    <option selected disabled>Select one</option>
-                                                    <option>On Hold</option>
-                                                    <option>Canceled</option>
-                                                    <option>Success</option>
+                                                <select id="category" class="form-control custom-select" name="category_id">
+                                                    <option {{ isset($post)?'':'selected' }} disabled>Select one</option>
+                                                    @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}" {{ isset($post)&&$post->category_id==$category->id?'selected':'' }}>{{ $category->title }}</option>
+                                                    @endforeach
+
                                                 </select>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Tags</label>
-                                                <select class="select2" multiple="multiple" name="tag[]" data-placeholder="Select a State" style="width: 100%;">
-                                                    <option>Alabama</option>
-                                                    <option>Alaska</option>
-                                                    <option>California</option>
-                                                    <option>Delaware</option>
-                                                    <option>Tennessee</option>
-                                                    <option>Texas</option>
-                                                    <option>Washington</option>
+                                                <select class="select2" multiple="multiple" name="tags[]"  style="width: 100%;">
+                                                    @foreach($tags as $tag)
+                                                        @if(isset($post))
+                                                            @foreach($post->tags as $tag2)
+                                                                <option value="{{ $tag->id }}" {{ $tag2->id==$tag->id?'selected':'' }}>{{ $tag->name }}</option>
+                                                            @endforeach
+                                                        @else
+                                                        <option value="{{ $tag->id }}" >{{ $tag->name }}</option>
+                                                        @endif
+                                                    @endforeach
+
                                                 </select>
                                             </div>
 
@@ -107,17 +115,21 @@
 
                                             <div class="form-group">
                                                 <label for="meta_description">Meta Description</label>
-                                                <textarea id="meta_description" class="form-control" rows="4" name="meta_description"></textarea>
+                                                <textarea id="meta_description" class="form-control" rows="4" name="meta_description">
+                                                    {{ isset($post)?$post->meta_description: old('meta_description') }}
+                                                </textarea>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="meta_keywords">Meta Keywords</label>
-                                                <textarea id="meta_keywords" class="form-control" rows="4" name="meta_keywords"></textarea>
+                                                <textarea id="meta_keywords" class="form-control" rows="4" name="meta_keywords">
+                                                    {{ isset($post)?$post->meta_keywords: old('meta_keywords') }}
+                                                </textarea>
                                             </div>
 
                                             <div class="form-group">
                                                 <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" name="active">
+                                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" name="active" checked>
                                                     <label class="custom-control-label" for="customSwitch1">Publish</label>
                                                 </div>
                                             </div>

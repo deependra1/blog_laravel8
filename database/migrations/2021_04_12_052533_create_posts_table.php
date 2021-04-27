@@ -25,6 +25,10 @@ class CreatePostsTable extends Migration
             $table->boolean('active')->default(false);
             $table->string('image')->nullable();
             $table->timestamps();
+            $table->foreignId('category_id')
+                ->constrained()
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

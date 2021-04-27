@@ -23,7 +23,8 @@
                         <tr>
                             <th>S.N.</th>
                             <th>Title</th>
-                            <th>Slug</th>
+                            <th>Category</th>
+                            <th>Written By</th>
                             <th>Created At</th>
                             <th class="project-actions text-right">Action</th>
 
@@ -34,8 +35,9 @@
                             <tr>
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $post->title }}</td>
-                                <td>{{ $post->slug }}</td>
-                                <td>{{ $post->created_at }}</td>
+                                <td>{{ $post->category->title }}</td>
+                                <td>admin</td>
+                                <td>{{ $post->created_at->diffForHumans() }}</td>
                                 <td class="project-actions text-right">
                                     <form action="{{ route('posts.destroy',$post->id) }}" method="POST">
                                         <a class="btn btn-sm btn-info" href="{{ route('posts.show',$post->id) }}"><i class="fas fa-eye"></i></a>
