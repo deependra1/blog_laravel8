@@ -36,7 +36,7 @@
     <!-- ======= Header ======= -->
     @include('frontend.incl.header')
     <!-- ======= Hero Section ======= -->
-    @include('frontend.incl.hero')
+    @yield('hero')
     <main id="main">
         @yield('content')
     </main>

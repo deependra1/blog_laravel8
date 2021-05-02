@@ -21,7 +21,7 @@ class FrontController extends Controller
     {
         $heros= $this->frontRepository->getHeros();
         $posts = $this->frontRepository->getAllPosts();
-        dd($posts);
-        return view('frontend.index');
+        //dd($posts);
+        return view('frontend.index', compact('heros','posts'));
     }
 }
