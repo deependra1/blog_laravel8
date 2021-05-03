@@ -24,4 +24,9 @@ class FrontController extends Controller
         //dd($posts);
         return view('frontend.index', compact('heros','posts'));
     }
+
+    public function show(Request $request, $slug)
+    {
+        return view('frontend.show');
+    }
 }
