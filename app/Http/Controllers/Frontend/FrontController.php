@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Repositories\FrontRepository;
 
@@ -27,6 +29,24 @@ class FrontController extends Controller
 
     public function show(Request $request, $slug)
     {
-        return view('frontend.show');
+        $post = $this->frontRepository->getPostBySlug($slug);
+        $title = __('') . '<strong>' . $post->title . '</strong>';
+        return view('frontend.show', compact('post', 'title'));
+    }
+
+    public function byCategory(Category $category)
+    {
+        $posts = $this->frontRepository->getPostByCategory($category->id);
+        $title = __('Posts by category:') . '<strong>' . $category->title . '</strong>';
+
+        return view('frontend.index', compact('posts', 'title'));
+    }
+
+    public function byTag(Tag $tag)
+    {
+        $posts = $this->frontRepository->getPostByTag($tag->slug);
+        $title = __('Posts by tag:') . '<strong>' . $tag->title . '</strong>';
+
+        return view('frontend.index', compact('posts', 'title'));
     }
 }

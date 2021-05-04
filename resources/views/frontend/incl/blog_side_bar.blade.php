@@ -14,7 +14,7 @@
         <div class="sidebar-item categories">
             <ul>
                 @foreach($categories as $category)
-                    <li><a href="#">{{ $category->title }} <span>({{ $category->posts->count() }})</span></a></li>
+                    <li><a href="{{ route('category', $category->slug) }}">{{ $category->title }} <span>({{ $category->posts->count() }})</span></a></li>
                 @endforeach
 
             </ul>
@@ -37,7 +37,7 @@
         <div class="sidebar-item tags">
             <ul>
                 @foreach($tags as $tag)
-                    <li><a href="#">{{ $tag->name }}</a></li>
+                    <li><a href="{{ route('tag', $tag->slug) }}">{{ $tag->name }}</a></li>
                 @endforeach
             </ul>
         </div><!-- End sidebar tags-->

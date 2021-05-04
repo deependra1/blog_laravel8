@@ -40,6 +40,8 @@ Auth::routes([
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [FrontController::class, 'index'])->name('home');
+Route::get('/category/{category:slug}', [FrontController::class, 'byCategory'])->name('category');
+Route::get('/tag/{tag:slug}', [FrontController::class, 'byTag'])->name('tag');
 
 Route::prefix('posts')->group(function () {
     Route::name('posts.display')->get('{slug}', [FrontController::class, 'show']);
